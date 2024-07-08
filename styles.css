@@ -1,0 +1,114 @@
+
+@import url('https://fonts.googleapis.com/css2?family=Hachi+Maru+Pop&display=swap');
+.body {
+    margin: 0;
+    font-family: "Hachi Maru Pop";
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    background-image: url('background-image.jpg');
+    background-size: cover;
+    background-position: center;
+    color: #fff;
+}
+
+.overlay {
+    background: rgb(255, 255, 255);
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.content {
+    margin-top: 10vh;
+    background: rgba(255, 255, 255, 0.9);
+    padding: 30px;
+    border-radius: 10px;
+    text-align: center;
+    width: 90%;
+    max-width: 500px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.content h1 {
+    font-family: "Hachi Maru Pop";
+    margin-bottom: 20px;
+    color: #333;
+}
+.select-item{
+    font-family: "Hachi Maru Pop";
+}
+.content input[type="email"] {
+    padding: 10px;
+    margin-bottom: 20px;
+    width: 80%;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    box-sizing: border-box;
+}
+
+.content .images {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 20px;
+    flex-wrap: wrap;
+    margin: 10px;
+}
+
+.content .images img {
+    cursor: pointer;
+    border: 2px solid transparent;
+    border-radius: 5px;
+    width: 200px;
+    height: 200px;
+    object-fit: cover;
+    transition: transform 0.3s, border-color 0.3s;
+    
+    margin: 10px;
+}
+
+.content .images img.selected {
+    border-color: blue;
+    transform: scale(1.05);
+}
+
+.content button {
+    padding: 10px 20px;
+    cursor: pointer;
+    background-color: rgb(252, 241, 95);
+    color: #020202;
+    border: none;
+    border-radius: 5px;
+    transition: background-color 0.3s;
+    border: #c6c5c5 solid 1px;
+}
+
+.content button:hover {
+    background-color: darkblue;
+    color: #ccc;
+}
+
+/* Mobile Styles */
+@media (max-width: 600px) {
+    .content {
+        padding: 15px;
+    }
+
+    .content h1 {
+        font-size: 1.5em;
+    }
+
+    .content .images {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .content .images img {
+        width: 100%;
+        max-width: 200px;
+        height: auto;
+    }
+}
