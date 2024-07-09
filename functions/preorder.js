@@ -1,40 +1,45 @@
 const { google } = require('googleapis');
-const sheets = google.sheets('v4');
 const { GoogleAuth } = require('google-auth-library');
-const path = require('path')
-
-const auth = new GoogleAuth({
-  keyFile: path.join(__dirname, 'path/to/your/service-account-file.json'),
-  scopes: ['https://www.googleapis.com/auth/spreadsheets'],
-});
 
 exports.handler = async (event, context) => {
-  const { email, imageId } = JSON.parse(event.body);
-  const authClient = await auth.getClient();
-  const spreadsheetId = '15Gs1QYUTiHQDJP2f0ztKOd7vw-kA0tcG00cE1rQY-yI';
-  const range = 'Sheet1!A1:D1'; 
+  if (event.httpMethod !== 'POST') {
+    return {
+      statusCode: 405,
+      body: 'Method Not Allowed',
+    };
+  }
 
-  const request = {
-    spreadsheetId,
-    range,
-    valueInputOption: 'RAW',
-    insertDataOption: 'INSERT_ROWS',
-    resource: {
-      values: [[email, imageId]],
-    },
-    auth: authClient,
-  };
+  const { email, imageId } = JSON.parse(event.body);
+
+  const auth = new GoogleAuth({
+    credentials: JSON.parse(process.env.GOOGLE_SERVICE_ACCOUNT_CREDENTIALS),
+    scopes: ['https://www.googleapis.com/auth/spreadsheets'],
+  });
+
+  const client = await auth.getClient();
+  const sheets = google.sheets({ version: 'v4', auth: client });
+
+  const spreadsheetId = process.env.GOOGLE_SHEET_ID;
 
   try {
-    await sheets.spreadsheets.values.append(request);
+    await sheets.spreadsheets.values.append({
+      spreadsheetId,
+      range: 'Sheet1!A1:D1', // Adjust range as needed
+      valueInputOption: 'USER_ENTERED',
+      resource: {
+        values: [[email, imageId]],
+      },
+    });
+
     return {
       statusCode: 200,
       body: JSON.stringify({ message: 'Preorder successful!' }),
     };
   } catch (error) {
+    console.error(error);
     return {
       statusCode: 500,
-      body: JSON.stringify({ error: 'Error appending to Google Sheets.' }),
+      body: JSON.stringify({ error: 'Error processing your preorder' }),
     };
   }
 };
