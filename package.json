@@ -1,0 +1,18 @@
+{
+  "name": "my-preorder-website",
+  "version": "1.0.0",
+  "description": "A simple preorder page that integrates with Google Sheets",
+  "main": "index.js",
+  "scripts": {
+    "start": "netlify dev"
+  },
+  "dependencies": {
+    "googleapis": "^39.2.0",
+    "google-auth-library": "^7.0.2"
+  },
+  "devDependencies": {
+    "netlify-cli": "^6.0.0"
+  },
+  "author": "Your Name",
+  "license": "MIT"
+}
