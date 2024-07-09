@@ -3,12 +3,22 @@ const { google } = require('googleapis');
 const { GoogleAuth } = require('google-auth-library');
 
 exports.handler = async (event, context) => {
-  if (event.httpMethod !== 'POST') {
+  try {
+    const { email, imageId } = JSON.parse(event.body);
+    // Handle email and imageId data
     return {
-      statusCode: 405,
-      body: 'Method Not Allowed',
+      statusCode: 200,
+      body: JSON.stringify({ message: 'Data parsed successfully' }),
+    };
+  } catch (error) {
+    console.error('Error parsing JSON:', error);
+    return {
+      statusCode: 400,
+      body: JSON.stringify({ error: 'Invalid JSON data' }),
     };
   }
+};
+
 
   const { email, imageId } = JSON.parse(event.body);
 
