@@ -3,6 +3,13 @@ document.getElementById('preorder-form').addEventListener('submit', async (event
   const email = document.getElementById('email').value;
   const imageId = document.querySelector('input[name="image"]:checked').value;
 
+  if (!email || !imageId) {
+    alert('Please fill out the form completely.');
+    return;
+  }
+
+  console.log(`Email: ${email}, Image ID: ${imageId}`);
+
   try {
     const response = await fetch('/api/preorder', {
       method: 'POST',
@@ -11,6 +18,7 @@ document.getElementById('preorder-form').addEventListener('submit', async (event
       },
       body: JSON.stringify({ email, imageId }),
     });
+
     const result = await response.json();
     if (response.ok) {
       alert(result.message);
