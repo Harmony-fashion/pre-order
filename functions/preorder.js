@@ -1,3 +1,4 @@
+require('dotenv').config();
 const { google } = require('googleapis');
 const { GoogleAuth } = require('google-auth-library');
 
@@ -24,7 +25,7 @@ exports.handler = async (event, context) => {
   try {
     await sheets.spreadsheets.values.append({
       spreadsheetId,
-      range: 'Sheet1!A1:D1', // Adjust range as needed
+      range: 'Sheet1!A:B', // Adjust range as needed
       valueInputOption: 'USER_ENTERED',
       resource: {
         values: [[email, imageId]],
